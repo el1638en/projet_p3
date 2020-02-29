@@ -16,15 +16,19 @@
 	<modules>
 		<module>bibliotheque-ws</module>
 		<module>bibliotheque-webapp</module>
+		<module>bibliotheque-batch</module>
 	</modules>
-
 
 	<properties>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 		<java.version>8</java.version>
+		<jaxb-core.version>2.3.0</jaxb-core.version>
+		<jaxb-impl.version>2.2.11</jaxb-impl.version>
+		<saaj-impl.version>1.5.1</saaj-impl.version>
+		<jaxws-api.version>2.3.1</jaxws-api.version>
+		<maven-jaxb2-plugin.version>0.14.0</maven-jaxb2-plugin.version>
+		<ws.soap.url>http://localhost:8080/ws/bibliotheque.wsdl</ws.soap.url>
 	</properties>
-
-
 
 	<dependencyManagement>
 		<dependencies>

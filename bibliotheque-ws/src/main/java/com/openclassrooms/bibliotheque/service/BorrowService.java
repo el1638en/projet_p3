@@ -7,12 +7,14 @@ import java.util.List;
 //TODO : ajouter des commentaires sur les classes et les méthodes
 public interface BorrowService {
 
-    Boolean borrowBook(Long workId, Long memberId);
+    boolean borrowBook(Long workId, Long memberId);
 
-    Boolean extendBorrow(Long borrowId);
+    boolean extendBorrow(Long borrowId);
 
-    Boolean terminateBorrow(Long borrowId);
+    boolean terminateBorrow(Long borrowId);
 
     List<Borrow> findBorrowListByMemberId(Long memberId);
+
+    List<Borrow> findDelayBorrows();
 
 }

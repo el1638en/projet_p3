@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title th:remove="all">Bibliptheque municipale - Rappel pour livre en retard.</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+</head>
+<body>
+<p>
+    Bonjour <span th:text=" ${name} +  '  ' +${firstName} "/>,
+</p>
+
+<p>
+    Vous avez emprunt&eacute; &agrave; la bibiloth&egrave;que municipale l'ouvrage  : <b><span th:text="${workTitle}"/></b>.
+</p>
+
+<p>
+    Sa date de retour &eacute;tait pr&eacute;vu pour le <b><span th:text="${endDate}"/></b>.
+</p>
+
+<p>
+    Nous vous remercions de bien vouloir rapporter cet ouvrage dans les meilleurs d&eacute;lais.
+</p>
+
+<p>
+    Cordialement, <br />
+    <em>La bibliotheque municipale.</em>
+</p>
+</body>
+</html>

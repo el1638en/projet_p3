@@ -14,11 +14,12 @@ import com.openclassrooms.bibliotheque.service.BorrowService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-
 import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 import java.util.Optional;
+
+import static com.openclassrooms.bibliotheque.enumType.BorrowStatusEnum.ENCOURS;
 
 @Service
 @Transactional
@@ -34,7 +35,7 @@ public class BorrowServiceImpl implements BorrowService {
     private BookRepository bookRepository;
 
 
-    public Boolean borrowBook(Long workId, Long memberId) {
+    public boolean borrowBook(Long workId, Long memberId) {
         // on recupère l'Id du membre passé en parametre
         Optional<Member> optionalMember = memberRepository.findById(memberId);
         if (!optionalMember.isPresent()) {
@@ -60,7 +61,7 @@ public class BorrowServiceImpl implements BorrowService {
                 borrowToSave.setEndBorrowDate(calendar.getTime());
 
                 //Set le statut de l'emprunt + Ajout du nom de l'oeuvre à l'emprunt
-                borrowToSave.setStatus(BorrowStatusEnum.ENCOURS.value());
+                borrowToSave.setStatus(ENCOURS.value());
                 borrowToSave.setWorkTitle(work.getTitle());
 
                 // set extended
@@ -78,7 +79,7 @@ public class BorrowServiceImpl implements BorrowService {
         return toReturn;
     }
 
-    public Boolean extendBorrow(Long borrowId) {
+    public boolean extendBorrow(Long borrowId) {
         Boolean toReturn = false;
         // Recuperer le borrow dont on connait l'ID
         Borrow borrowToExtend = borrowRepository.findById(borrowId);
@@ -100,7 +101,7 @@ public class BorrowServiceImpl implements BorrowService {
     }
 
     //public Boolean terminateBorrow(Long borrowId, Long memberId ) {
-    public Boolean terminateBorrow(Long borrowId) {
+    public boolean terminateBorrow(Long borrowId) {
         //Set le statut de l'emprunt a "rendu"
         Borrow borrowToEnd = borrowRepository.findById(borrowId);
         borrowToEnd.setStatus(BorrowStatusEnum.RENDU.value());
@@ -116,6 +117,11 @@ public class BorrowServiceImpl implements BorrowService {
     @Override
     public List<Borrow> findBorrowListByMemberId(Long memberId) {
         return borrowRepository.findByMemberId(memberId);
+    }
+
+    @Override
+    public List<Borrow> findDelayBorrows() {
+        return borrowRepository.findByStatusAndEndBorrowDate(ENCOURS.value(), new Date());
     }
 
 
